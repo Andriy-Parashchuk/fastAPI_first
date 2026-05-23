@@ -13,3 +13,23 @@ class User(BaseModel):
 
 
 users = []
+
+
+@app.post('/create_user')
+def add_entity(user: User):
+    users.append(user)
+    return user
+
+
+@app.get("/users/")
+def get_all_users():
+    return users
+
+
+@app.get("/users/{user_id}")
+def get_user_by_id(user_id: int):
+    for u in users:
+        if user_id == u.id:
+            return u
+    return 'такого немає'
+
